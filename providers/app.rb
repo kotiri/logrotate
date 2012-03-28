@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: logrotate
-# Provider:: rotation
+# Provider:: app
 #
 # Copyright 2009, Scott M. Likens
 #
@@ -17,12 +17,10 @@
 # limitations under the License.
 #
 
-include_recipe "logrotate"
-
-path = new_resource.path.respond_to?(:each) ? new_resource.path : new_resource.path.split
-perms = new_resource.permissions ? new_resource.permissions : "644 root adm"
-
 action :create do
+  path = new_resource.path.respond_to?(:each) ? new_resource.path : new_resource.path.split
+  perms = new_resource.create ? new_resource.create : "644 root adm"
+
   template "/etc/logrotate.d/#{new_resource.name}" do
     source new_resource.template
     cookbook new_resource.cookbook
@@ -31,8 +29,8 @@ action :create do
     group "root"
     backup false
     variables(
-      :path => new_resource.path,
-      :create => new_resource.permissions,
+      :path => path,
+      :create => perms,
       :frequency => new_resource.frequency,
       :rotate => new_resource.rotate
     )

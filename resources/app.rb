@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: logrotate
-# Resource:: rotation
+# Resource:: app
 #
 # Copyright 2009, Scott M. Likens
 #
@@ -22,8 +22,8 @@ attribute :name, :kind_of => String, :name_attribute => true
 attribute :frequency, :kind_of => String, :default => "weekly"
 attribute :template, :kind_of => String, :default => "logrotate.erb"
 attribute :cookbook, :kind_of => String, :default => "logrotate"
-attribute :permissions, :kind_of => String, :default => nil
-attribute :rotate, :kind_of => Number
+attribute :create, :kind_of => String, :default => nil
+attribute :rotate, :kind_of => Integer
 attribute :path, :default => ''
 
 def initialize(*args)
